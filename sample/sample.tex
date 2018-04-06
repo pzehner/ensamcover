@@ -1,0 +1,29 @@
+\documentclass{report}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+\fi
+\ifXeTeX
+  \usepackage{fontspec}
+\fi
+\ifLuaTeX
+  \usepackage{fontspec}
+\fi
+
+\usepackage{lipsum}
+\usepackage[french]{babel}
+\usepackage{../ensamcover}
+
+\loadcoverdata{data}
+
+\begin{document}
+
+\makefrontpage
+
+\lipsum[1-4]
+
+\makerearpage
+
+\end{document}

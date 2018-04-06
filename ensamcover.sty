@@ -1,0 +1,282 @@
+% based on
+% https://gist.github.com/DorianDepriester/c7b4ff58ef4973bf5c85
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ensamcover}[2018/04/06]
+
+\RequirePackage{graphicx}
+\RequirePackage{geometry}
+\RequirePackage{eso-pic}  % Nécessaire pour mettre des images en arrière plan
+\RequirePackage{array}    % Permet d'écrite 'THESE' de haut en bas
+\RequirePackage{ifthen}
+
+\title{Titre de th\`{e}se}
+\author{Prénom Nom}
+\date{\today}
+
+\def\@institute{\'{e}cole}
+\newcommand{\institute}[1]{%
+  \def\@institute{#1}
+}
+
+\def\@speciality{Sp\'{e}cialit\'{e}}
+\newcommand{\speciality}[1]{%
+  \def\@speciality{#1}
+}
+
+\def\@doctorateschool{\'{E}cole Doctorale}
+\newcommand{\doctorateschool}[1]{%
+  \def\@doctorateschool{#1}
+}
+
+\def\@doctorate{Doctorat}
+\newcommand{\doctorate}[1]{%
+  \def\@doctorate{#1}
+}
+
+\def\@address{\textbf{\'{E}tablissement}\\Adresse}
+\newcommand{\address}[2]{%
+  \def\@address{\textbf{#1}\\#2}
+}
+
+\def\@director{directeur}
+\newboolean{directorplural}
+\setboolean{directorplural}{false}
+\newcommand{\director}[2][]{%
+  \def\@director{#2}
+  \ifthenelse{\equal{#1}{}}{}{\setboolean{directorplural}{true}}
+}
+
+\def\@supervizor{encadrant}
+\newboolean{supervizorplural}
+\setboolean{supervizorplural}{false}
+\newcommand{\supervizor}[2][]{%
+  \def\@supervizor{#2}
+  \ifthenelse{\equal{#1}{}}{}{\setboolean{supervizorplural}{true}}
+}
+
+\def\@version{}
+\newcommand{\version}[1]{%
+  \def\@version{#1}
+}
+
+\def\@titleen{title in English}
+\newcommand{\titleen}[1]{%
+  \def\@titleen{#1}
+}
+
+\def\@abstracten{abstract in English}
+\newcommand{\abstracten}[1]{%
+  \def\@abstracten{#1}
+}
+
+\def\@keywordsen{keywords in English}
+\newcommand{\keywordsen}[1]{%
+  \def\@keywordsen{#1}
+}
+
+\def\@titlefr{titre en français}
+\newcommand{\titlefr}[1]{%
+  \def\@titlefr{#1}
+}
+
+\def\@abstractfr{r\'{e}sum\'{e} en fran\,{c}ais}
+\newcommand{\abstractfr}[1]{%
+  \def\@abstractfr{#1}
+}
+
+\def\@keywordsfr{mots cl\'{e}s en fran\,{c}ais}
+\newcommand{\keywordsfr}[1]{%
+  \def\@keywordsfr{#1}
+}
+
+\def\@thesisid{1970-ENAM-0000}
+\newcommand{\thesisid}[1]{%
+  \def\@thesisid{#1}
+}
+
+\definecolor{maincolor}{HTML}{8e2462}
+\newcommand{\institutecolor}[2]{%
+  \definecolor{maincolor}{#1}{#2}
+}
+
+\def\@institutelogo{ensam}
+\newcommand{\institutelogo}[1]{%
+  \def\@institutelogo{#1}
+}
+
+\def\@jury{Nom, & institution & r\^{o}le}
+\newcommand{\jury}[1]{%
+  \def\@jury{#1}
+}
+
+\newcommand{\jurymember}[3]{%
+  #1, & #2 & #3\\
+}
+
+\newcommand{\loadcoverdata}[1]{%
+  \IfFileExists{#1}{%
+    \input{#1}
+  }{
+    \PackageWarning{ensamcover}{data file #1 does not exist, using default values}
+  }
+}
+
+
+\newcommand{\backgroundfront}{%
+  \put(0,0){%
+    \parbox[b][\paperheight]{\paperwidth}{%
+      \includegraphics[height=0.45\paperheight]{border.png}%
+      \vfill
+    }
+  }
+}
+
+\newcommand{\backgroundrear}{%
+  \put(0,0){%
+    \parbox[t][\paperheight]{\paperwidth}{%
+      \hfill
+      \includegraphics[height=0.45\paperheight]{border.png}%
+    }
+  }
+}
+
+\newcommand{\thesiscolumn}{%
+  \put(0,0){%
+    \parbox[t][\paperheight]{\paperwidth}{%
+      \hfill
+      \colorbox{maincolor}{
+        \begin{minipage}[b]{3em}
+          \centering%
+          \Huge%
+          \vspace{0.75em}%
+          \textcolor{white}{\textsf{T\\H\\È\\S\\E\\}}%
+          \vspace{0.75em}%
+        \end{minipage}
+      }
+    }
+  }
+}
+
+\newcommand{\makefrontpage}{%
+\newgeometry{top=2.5cm, bottom=1cm, left=2cm, right=1cm}
+  \AddToShipoutPicture*{\backgroundfront}
+  \AddToShipoutPicture*{\thesiscolumn}
+  \begin{titlepage}
+    {%
+      \includegraphics[height=1.75cm]{paris_tech.pdf}%
+      \hfill%
+      \includegraphics[height=1.75cm]{\@institutelogo}%
+
+      \hfill\scriptsize \@thesisid%
+    }\\
+    \centering
+    \vfill
+    {\Large \@doctorateschool}\\
+    \vfill
+    {\huge {\bfseries \@doctorate}\\
+    \ifthenelse{\equal{\@version}{}}{}{%
+      \vfill
+      {%
+        \setlength{\fboxsep}{0.65em}
+        \textcolor{red!90!black}{\framebox{\textbf{\LARGE\@version }}}\\
+      }
+    }
+    \vspace{0.5cm}
+        THÈSE}\\
+    \vfill
+     {\bfseries pour obtenir le grade de docteur délivré par}\\
+    \vfill
+    {\huge\bfseries \@institute}\\
+    \vspace{0.5cm}
+    {\Large{\bfseries Spécialité doctorale ``\@speciality''}}\\
+    \vfill
+    \vfill
+    \textit{présentée et soutenue publiquement par}\\
+    \vspace{0.5cm}
+    {\Large {\bfseries \@author}} \\
+    \vspace{0.5cm}
+    le \@date \\
+    \vfill
+    {\LARGE \bfseries{\textcolor{maincolor}{\@title}}} \\
+    \vfill
+    Directeur\ifthenelse{\boolean{directorplural}}{s}{} de thèse : {\bfseries \@director}\\
+    Encadrant\ifthenelse{\boolean{supervizorplural}}{s}{} de la thèse : {\bfseries \@supervizor}\\
+    \vfill
+    \makebox[\linewidth][c]{%
+      \begin{tabular}{>{\bfseries}llr}
+        \large Jury\\
+        \@jury
+      \end{tabular}%
+    }
+    \vfill
+
+    \@address
+  \end{titlepage}
+
+  \restoregeometry
+}
+
+\newcommand*{\cleartoleftpage}{%
+  \clearpage
+    \if@twoside
+    \ifodd\c@page
+      \hbox{}\thispagestyle{empty}\newpage
+      \if@twocolumn
+        \hbox{}\newpage
+      \fi
+    \fi
+  \fi
+}
+
+\@ifpackagewith{babel}{french}{
+  \newcommand{\nospacebabel}{\NoAutoSpacing}
+}{
+  \newcommand{\nospacebabel}{}
+}
+
+\newcommand{\makerearpage}{%
+  \cleartoleftpage
+  \thispagestyle{empty}
+  \pagestyle{empty}
+  
+  \newgeometry{top=2cm, bottom=1cm, right=2.5cm, left=1.5cm}
+  \AddToShipoutPicture*{\backgroundrear}
+
+  \vfill
+  
+  \section*{\@titlefr}
+  
+  \noindent \textbf{Résumé~:} \@abstractfr
+  
+  \vspace{1.5em}
+  
+  \noindent \textbf{Mots-clés~:} \textsc{\@keywordsfr}
+  
+  \vfill
+
+  {%
+  	\nospacebabel
+    
+    \section*{\@titleen}
+    
+    \noindent \textbf{Abstract:} \@abstracten
+    
+    \vspace{1.5em}
+    
+    \noindent \textbf{Keywords:} \textsc{\@keywordsen}
+  }
+
+  \vfill
+  \vspace{1cm}
+
+  {%
+    \noindent\includegraphics[height=1cm]{\@institutelogo}%
+    \hfill%
+    \includegraphics[height=1cm]{paris_tech.pdf}%
+  }
+
+  \restoregeometry
+}
+
+\endinput

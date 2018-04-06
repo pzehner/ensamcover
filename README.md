@@ -5,8 +5,8 @@ Il s'agit d'une version améliorée et encapsulée du modèle créé par [Dorian
 
 Le paquet s'utilise avec PDFLaTeX, XeLaTeX ou LuaLaTeX.
 
-![Première de couverture](sample/sample_front.jpg)
-![Quatrième de couverture](sample/sample_rear.jpg)
+![Première de couverture](sample/sample-front.jpg)
+![Quatrième de couverture](sample/sample-rear.jpg)
 
 ## Installation
 

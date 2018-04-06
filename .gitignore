@@ -2,3 +2,5 @@ sample/*.pdf
 sample/*.out
 sample/*.aux
 sample/*.log
+sample/*.fdb_latexmk
+sample/*.fls

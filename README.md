@@ -196,3 +196,18 @@ Les mots clés peuvent être séparés par n'importe quel caractère.
 ## Dossier d'exemple
 
 Le dossier `sample` contient un exemple complet.
+Il peut être compilé avec `make`.
+
+## Problèmes connus
+
+### Problème avec `tikzexternalize`
+
+Quand `tikzexternalize` est utilisé, par exemple avec PGFPlots, l'image de la bordure peut apparaître sur toutes les figures générées.
+C'est un effet secondaire de la méthode utilisée pour afficher cette image sur la couverture.
+On peut y remédier dans les options de `tikzexternalize` :
+
+```latex
+\tikzexternalize[
+  optimize command away=\AddToShipoutPicture,
+]
+```

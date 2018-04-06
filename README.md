@@ -153,7 +153,7 @@ La quatrième de couverture est réservée aux résumés.
 #### Résumé en français
 
 ```latex
-titlefr{Titre en français sans effet de renvoi de ligne}
+\titlefr{Titre en français sans effet de renvoi de ligne}
 ```
 
 Spécifie le titre.
@@ -173,19 +173,19 @@ Les mots clés peuvent être séparés par n'importe quel caractère.
 #### Résumé en anglais
 
 ```latex
-titlefr{Titre en anglais sans effet de renvoi de ligne}
+\titleen{Titre en anglais sans effet de renvoi de ligne}
 ```
 
 Spécifie le titre.
 
 ```latex
-\abstractfr{résumé proprement dit en anglais}
+\abstracten{résumé proprement dit en anglais}
 ```
 
 Le texte du résumé, il doit ne former qu'un seul paragraphe et ne pas dépasser 4000 caractères.
 
 ```latex
-\keywordsfr{liste des mots clés en anglais}
+\keywordsen{liste des mots clés en anglais}
 ```
 
 Les mots clés peuvent être séparés par n'importe quel caractère.

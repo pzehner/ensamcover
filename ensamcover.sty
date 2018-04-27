@@ -11,7 +11,7 @@
 \RequirePackage{ifthen}
 
 \title{Titre de th\`{e}se}
-\author{Prénom Nom}
+\author{Pr\'{e}nom Nom}
 \date{\today}
 
 \def\@institute{\'{e}cole}
@@ -105,6 +105,16 @@
   \def\@institutelogo{#1}
 }
 
+\def\@labologo{}
+\newcommand{\labologo}[1]{%
+  \def\@labologo{#1}
+}
+
+\def\@logoheight{1.25cm}
+\newcommand{\logoheight}[1]{%
+  \def\@logoheight{#1}
+}
+
 \def\@jury{Nom, & institution & r\^{o}le}
 \newcommand{\jury}[1]{%
   \def\@jury{#1}
@@ -164,9 +174,17 @@
   \AddToShipoutPicture*{\thesiscolumn}
   \begin{titlepage}
     {%
-      \includegraphics[height=1.75cm]{paris_tech.pdf}%
-      \hfill%
-      \includegraphics[height=1.75cm]{\@institutelogo}%
+      \ifthenelse{\equal{\@labologo}{}}{
+        \includegraphics[height=1.75cm]{paris_tech.pdf}%
+        \hfill%
+        \includegraphics[height=1.75cm]{\@institutelogo}%
+      }{
+        \includegraphics[height=\@logoheight]{paris_tech.pdf}%
+        \hfill%
+        \includegraphics[height=\@logoheight]{\@institutelogo}%
+        \hfill%
+        \includegraphics[height=\@logoheight]{\@labologo}%
+      }
 
       \hfill\scriptsize \@thesisid%
     }\\
@@ -271,9 +289,17 @@
   \vspace{1cm}
 
   {%
-    \noindent\includegraphics[height=1cm]{\@institutelogo}%
-    \hfill%
-    \includegraphics[height=1cm]{paris_tech.pdf}%
+    \ifthenelse{\equal{\@labologo}{}}{
+      \noindent\includegraphics[height=1cm]{\@institutelogo}%
+      \hfill%
+      \includegraphics[height=1cm]{paris_tech.pdf}%
+    }{
+      \noindent\includegraphics[height=1cm]{\@labologo}%
+      \hfill%
+      \includegraphics[height=1cm]{\@institutelogo}%
+      \hfill%
+      \includegraphics[height=1cm]{paris_tech.pdf}%
+    }
   }
 
   \restoregeometry

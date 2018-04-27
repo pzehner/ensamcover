@@ -78,6 +78,20 @@ Spécifie l'établissement de l'école doctorale, par exemple « École National
 Si l'établissement est différent de l'ENSAM, permet de spécifier un autre fichier de logo.
 
 ```latex
+\labologo{logo}
+```
+
+Si la thèse a lieu dans un laboratoire d'accueil, permet d'en spécifier le logo.
+Il apparait sur la couverture et sur la quatrième de couverture.
+
+```latex
+\logoheight{1.25cm}
+```
+
+Si un logo de laboratoire d'accueil a été fourni, permet d'ajuster la hauteur des logos sur la première page.
+La hauteur par défaut est de 1,25 cm.
+
+```latex
 \institutecolor{modèle}{spécification}
 ```
 
